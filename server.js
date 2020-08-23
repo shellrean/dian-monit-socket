@@ -20,22 +20,19 @@ io.sockets.on('connection', function(socket) {
 		socket.user = payload.user
 		socket.channel = payload.channel
 
-		io.emit('is_online_'+socket.channel, payload.user)
+		io.emit('is_online_'+socket.channel, { user: payload.user, key: payload.channel })
 		console.log('connect to channel'+socket.channel)
-	})
-	
-	socket.on('comment', function(payload) {
-		io.emit('comment_'+socket.channel, payload.comment)
 	})
 
 	socket.on('disconnect', function(username) {
-		io.emit('is_offline_'+socket.channel, socket.user);
+		io.emit('is_offline_'+socket.channel, { user: socket.user, key: socket.channel });
 		console.log(' left to channel'+socket.channel)
 	})
 
 	socket.on('exit', function(payload) {
-		io.emit('is_offline_'+socket.channel, socket.user);
+		io.emit('is_offline_'+socket.channel, { user: socket.user, key: socket.channel });
 		console.log(' left to channel'+socket.channel)
+		io.sockets.disconnect()
 	})
 })
 console.log('Server run on port 4000')
