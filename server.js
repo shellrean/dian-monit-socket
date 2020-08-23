@@ -20,17 +20,17 @@ io.sockets.on('connection', function(socket) {
 		socket.user = payload.user
 		socket.channel = payload.channel
 
-		io.emit('is_online_'+socket.channel, { user: payload.user, key: payload.channel })
+		io.emit('is_online',{ user: payload.user, key: payload.channel })
 		console.log(payload.user.email+' ::: connect to channel => '+socket.channel)
 	})
 
 	socket.on('disconnect', function(username) {
-		io.emit('is_offline_'+socket.channel, { user: socket.user, key: socket.channel });
+		io.emit('is_offline', { user: socket.user, key: socket.channel });
 		console.log('disconnect from channel => '+socket.channel)
 	})
 
 	socket.on('exit', function(payload) {
-		io.emit('is_offline_'+socket.channel, { user: socket.user, key: socket.channel });
+		io.emit('is_offline', { user: socket.user, key: socket.channel });
 		console.log('exit from channel => '+socket.channel)
 	})
 })
