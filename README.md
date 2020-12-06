@@ -5,7 +5,7 @@ Dian monit socket adalah socket dari aplikasi pusat kontrol dari Learning Manage
 yarn install
 ```
 ``` js
-set port
+//set port
 let io = require('socket.io').listen(app.listen(4000));
 ```
 ## Running program
